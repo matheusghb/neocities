@@ -1,0 +1,51 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+}
+
+.desktop-viewer {
+    .background {
+        animation: slide 60s linear infinite alternate;
+        position: fixed;
+        top: 0;
+        z-index: -1;
+        height: 100%;
+        width: 300%;
+        background-image: url(https://opengameart.org/sites/default/files/oga-textures/146572/puffy_sky-blue_04-512x512.png);
+    }
+    .desktop {
+        margin: auto;
+        display: flex;
+        flex-flow: column;
+        width: var(--vw);
+        height: calc(var(--vw)/2);
+        overflow: scroll;
+        
+        .screen {
+            ul {
+                li {
+                    a {
+                        img {
+                            object-fit: contain;
+                            width: calc(var(--vw)/30)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes slide{
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-100vw, 0, 0);
+  }
+}
