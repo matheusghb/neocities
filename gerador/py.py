@@ -1,8 +1,9 @@
 import random
 
 def pegar_cr(dif,player,tier):
+    tv = float(tier)
+    print(dif, player, tier, tv)  
     if player > 1:
-        tv = float(tier)
         for i in range(player-1):
             if tl[i+1] > tier or tl[i+1] < tier:
                 tv = tv + (tl[i+1]*0.5- tier)
@@ -11,6 +12,10 @@ def pegar_cr(dif,player,tier):
                     tv = tv + tier*.25
                 else:
                     tv = tv + 1
+        print("O resultado foi: ",tv)
+        print("Vamos fazer agora: ",tv," + ",dif," x ",int(player),"/ 2")
+        print(tv," + ",dif," x ",int(player/2))
+        print(tv," + ",dif*int(player/2))
         return tv + (dif*int(player/2))
     else:
         return dif
