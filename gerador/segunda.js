@@ -142,24 +142,70 @@ function random(list) {
 }
 
 function partytoggle() {
+    if (document.getElementById("info") != null) {
+        document.getElementById("info").remove()
+    }
     const ihatecoding = document.getElementsByClassName("party-container")
     for (let i = 0; i < ihatecoding.length; i++) {
-        if (ihatecoding[i].style.display === "none") {
-            ihatecoding[i].style.display = "flex"
-        } else {
+        if (ihatecoding[i].style.display == "flex") {
             ihatecoding[i].style.display = "none"
+        } else {
+            ihatecoding[i].style.display = "flex"
         }
     }
 }
 
 function generatortoggle() {
     const ihatecoding = document.getElementsByClassName("mission-generator")
+    if (document.getElementById("info") != null) {
+        document.getElementById("info").remove()
+    }
     for (let i = 0; i < ihatecoding.length; i++) {
-        if (ihatecoding[i].style.display === "none") {
-            ihatecoding[i].style.display = "flex"
-        } else {
+        if (ihatecoding[i].style.display == "flex") {
             ihatecoding[i].style.display = "none"
+        } else {
+            ihatecoding[i].style.display = "flex"
         }
+    }
+}
+
+function infotoggle() {
+
+    if (!document.getElementById("info")) {
+
+        if (document.getElementById("party").style.display == "flex") {
+            document.getElementById("party").style.display = "none"
+        }
+        if (document.getElementById("mission").style.display == "flex") {
+            document.getElementById("mission").style.display = "none"
+        }
+
+        const info = document.createElement("div")
+        info.id = "info"
+
+        const tinfom = document.createElement("h1")
+        tinfom.id = "tinfom"
+        tinfom.innerHTML = "==> About MISSION CALCULATOR"
+        tinfom.className = "title"
+
+        const pinfom = document.createElement("p")
+        pinfom.id = "pinfom"
+        pinfom.innerHTML = "It's just a calculator to deduce the approximate enemies to use on a session with more than one player. Of course, the rulebook isn't made for that, but i can dream. The Tier is the <b>Mission Tier</b> is the recommended enemy tier, and the <b>difficulty</b> is an arbitrary value that ups the CR.<br><br>Having additional players adds about half or a quarter of their tier to the CR based around if their Tier is above or below the average group tier.<br><br>Basically, more players adds more CR based on how far close they are to the rest of the group power-wise. This whole system deduces that the player's damage can be (roughly) summed up by its Tier."
+
+        const tinfop = document.createElement("h1")
+        tinfop.id = "tinfop"
+        tinfop.innerHTML = "==> About PROMPT GENERATOR"
+        tinfop.className = "title"
+
+        const pinfop = document.createElement("p")
+        pinfop.id = "pinfop"
+        pinfop.innerHTML = "It's a very simple randomizer that just sums up a bunch of words is an order that tries to make sense. It's a bullshit machine, pretty much. The HOW attribute follows whatever difficulty you've if the MISSION CALCULATOR has been used while the site is open.<br>The first word is either MOLD, SURPRESS or CONTACT.<br><br><b>MOLD</b> means that you have to MAINTAIN, GIVE or in any way CREATE the subject.<br><br><b>SURPRESS</b> means that you need to DESTROY, REDUCE or in any way STOP the subject in some way.<br><br>At last, <b>CONTACT</b> means that you need to OBTAIN, FIND or in any way INTERACT with a certain amount of the subject."
+
+        info.append(tinfom,pinfom,tinfop,pinfop)
+        document.getElementById("nav").after(info)
+
+    } else {
+        document.getElementById("info").remove()
     }
 }
 
@@ -278,7 +324,7 @@ function generator() {
     }
 
     if (flags[4].checked === true) {
-        result = result + " One may expect: "
+        result = result + " It might use: "
 
         let improv = 0
 
@@ -300,11 +346,11 @@ function generator() {
                     i = i+1
                 } else {
                     if (howlist.length > 0) {
-                        howlist.push("and "+howvalue+".")
+                        howlist.push("and "+howvalue)
                         i = i+1
                     }
                     else {
-                        howlist.push(" "+howvalue+".")
+                        howlist.push(" "+howvalue)
                     }
                 }
             }
@@ -312,6 +358,8 @@ function generator() {
         howlist.forEach(function(value) {
             result = result + value
         })
+
+        result = result + "."
 
     }
 
@@ -331,7 +379,7 @@ function player_input() {
 
     let label = document.createElement("label")
     label.for = lp.length
-    label.innerHTML = "Player "+(lp.length+1)
+    label.innerHTML = (lp.length+1)+"'s Tier"
     label.id = "label "+lp.length
     label.className = "player-label"
 
@@ -347,6 +395,7 @@ function player_input() {
     let pdelete = document.createElement("button")
     pdelete.id = "del" + lp.length
     pdelete.className = "delete-button"
+    pdelete.innerHTML = "X"
     pdelete.onclick = function() {
 
         document.getElementById("div" + (this.id)[3]).remove()
@@ -360,9 +409,15 @@ function player_input() {
 
         x = 0
 
+        if (lp.length < 1) {
+            document.getElementById("title-party").innerHTML = "Make a Mission:"
+            document.getElementById("sendbtn").remove()
+            document.getElementById("difdiv").remove()
+        }
+
         lp.forEach(function(value) {
             value.id = "div"+x
-            value.firstElementChild.innerHTML = "Player "+(x+1)
+            value.firstElementChild.innerHTML = (x+1)+"'s Tier"
             value.firstElementChild.id = "label "+ x
             value.firstElementChild.nextElementSibling.id = "teste " + x
             value.lastElementChild.id = "del" + x
@@ -376,14 +431,46 @@ function player_input() {
 
     if (!document.getElementById("sendbtn")) {
 
-        dif_slider = document.createElement("input")
+        const dif_div = document.createElement("div")
+        dif_div.id = "difdiv"
+
+        const dif_title = document.createElement("h1")
+        dif_title.id = "diftitle"
+        dif_title.innerHTML = "DIFFICULTY LEVEL: 1"
+
+        const dif_value = document.createElement("p")
+        dif_value.id = "difvalue"
+        dif_value.innerHTML = "You're making an easy mission."
+
+        const dif_slider = document.createElement("input")
+        dif_slider.value = 1
         dif_slider.min = 1
         dif_slider.max = 5
         dif_slider.type = "range"
         dif_slider.id = "dif-slider"
+        dif_slider.addEventListener("input",function() {
+            if (dif_slider.value == 1) {
+                dif_value.innerHTML = "You're making an easy mission."
+                dif_title.innerHTML = "DIFFICULTY LEVEL: 1"
+            } else if (dif_slider.value == 2) {
+                dif_value.innerHTML = "You're making a mild mission."
+                dif_title.innerHTML = "DIFFICULTY LEVEL: 2"
+            } else if (dif_slider.value == 3) {
+                dif_value.innerHTML = "You're making a hard mission."
+                dif_title.innerHTML = "DIFFICULTY LEVEL: 3"
+            } else if (dif_slider.value == 4) {
+                dif_value.innerHTML = "You're making an unfair mission."
+                dif_title.innerHTML = "DIFFICULTY LEVEL: 4"
+            } else if (dif_slider.value == 5) {
+                dif_value.innerHTML = "You're going to kill your players."
+                dif_title.innerHTML = "DIFFICULTY LEVEL: 5"
+            }
+        })
 
-        send = document.createElement("button")
-        send.innerHTML = "Send"
+        dif_div.append(dif_title,dif_slider,dif_value)
+
+        const send = document.createElement("button")
+        send.innerHTML = "SEND"
         send.id = "sendbtn"
         send.onclick = function() {
             
@@ -437,7 +524,7 @@ function player_input() {
 
         }
 
-        div_inputs.before(dif_slider)
+        div_inputs.before(dif_div)
 
         div_inputs.after(send)
     }

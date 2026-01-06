@@ -20,28 +20,45 @@
         <nav id="nav">
             <h1 onclick="partytoggle()" id="mission-toggle" class="toggles">MISSION CALCULATOR</h1>
             <h1 onclick="generatortoggle()" id="prompt-toggle" class="toggles">PROMPT GENERATOR</h1>
+            <h1 onclick="infotoggle()" id="info-toggle" class="toggles">INFO</h1>
         </nav>
 
-        <div class="party-container">
-            <h3 class="title" id="title-party">Make a party: </h3>
+        <div class="party-container" id="party">
+            <h3 class="title" id="title-party">Make a Mission: </h3>
             <button class="del" onclick="player_input()">+</button>
             <div class="inputs" id="divinput" ></div>
         </div>
         
         <br>
-        <div class="mission-generator">
+        <div class="mission-generator" id="mission">
             <h3 class="title" id="title-generator" >Generator: </h3>
-            <div class="flags">
+            <div class="inner-container">
+                <div class="flags">
 
-                <input class="modvalue" name="mod" value=80 type="number" id="modvalue"><label for="mod" id="flag1">Mod chance</label>
-                <input class="flag" name="mod_toggle" value="mod" type="checkbox" id="f1"> <label for="mod_toggle" id="flag2">Mod</label>
-                <input class="flag" name="why" value="why" type="checkbox" id="f2"> <label for="why" id="flag3">Why?</label>
-                <input class="flag" name="where" value="where" type="checkbox" id="f3"> <label for="where" id="flag4">Where?</label>
-                <input class="flag" name="when" value="when" type="checkbox" id="f4"> <label for="when" id="flag5">When?</label>
-                <input class="flag" name="how" value="how" type="checkbox" id="f5"> <label for="how" id="flag6">How?</label>
-
-                <h3 id="prompt"> </h3>
-                <div onclick="generator()" class="material-symbols-outlined" id="start">play_arrow</div>
+                    <div>
+                        <input class="modvalue" name="mod" value=80 type="number" id="modvalue"><label for="mod" id="flag1">Mod chance</label>
+                    </div>
+                    <div>
+                        <input class="flag" name="mod_toggle" value="mod" type="checkbox" id="f1"> <label for="mod_toggle" id="flag2">Mod</label>
+                    </div>
+                    <div>
+                        <input class="flag" name="why" value="why" type="checkbox" id="f2"> <label for="why" id="flag3">Why?</label>
+                    </div>
+                    <div>
+                        <input class="flag" name="where" value="where" type="checkbox" id="f3"> <label for="where" id="flag4">Where?</label>
+                    </div>
+                    <div>
+                        <input class="flag" name="when" value="when" type="checkbox" id="f4"> <label for="when" id="flag5">When?</label>
+                    </div>
+                    <div>
+                        <input class="flag" name="how" value="how" type="checkbox" id="f5"> <label for="how" id="flag6">How?</label>
+                    </div>
+                    
+                </div>
+                <div class="prompt">
+                    <h3 id="prompt"> </h3>
+                    <div onclick="generator()" class="material-symbols-outlined" id="start">play_arrow</div>                
+                </div>                
             </div>
         </div> 
         
