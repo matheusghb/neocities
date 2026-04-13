@@ -23,15 +23,29 @@ let values = {
     cr: 0,
 }
 
-function click(string) {
-    document.getElementById(string).addEventListener("click",function() {
-        this.style.filter = "brightness(100%)"
-        if (string == "br") {
-            document.getElementById("usa").style.filter = "brightness(70%)"
+const wtitle = document.getElementsByClassName("windowtitle")
+for (let i = 0; i < wtitle.length; i++) {
+    wtitle[i].addEventListener("click", function() {
+        let content = this.parentElement.childNodes[3]
+        if (content.style.display == "flex") {
+            content.style.display = "none"
+            this.childNodes[2].innerHTML = "add"
         } else {
-            document.getElementById("br").style.filter = "brightness(70%)"
+            content.style.display = "flex"
+            this.childNodes[2].innerHTML = "remove"
         }
-        payflag = string
+    })
+}
+
+const img = document.getElementsByClassName("img")
+for (let i = 0; i < img.length; i++) {
+    img[i].addEventListener("click", function() {
+        let l = this.childNodes
+        for (let i = 0; i < l.length; i++) {
+            if (l[i].tagName == "IMG") {
+                zoom(l[i].src)
+            } 
+        }
     })
 }
 
@@ -240,4 +254,38 @@ function calc() {
     }
 
     document.getElementById("rvalue").innerHTML = price
+}
+
+function mobilegetcase() { //not optimal but the original code would limit the UI and im feeling lazy x_x
+
+}
+
+function zoom(imgsrc) {
+    const canvas = document.createElement("div")
+    const img = document.createElement("img")
+    
+    canvas.className = "canva"
+    img.id = "canvaimg"
+    img.src = imgsrc
+    canvas.style.opacity = 0
+    img.style.opacity = 0
+    img.style.translate = "0px 50px"
+    canvas.appendChild(img)
+    canvas.addEventListener("click", function() {
+        this.remove()
+    })
+    document.getElementsByTagName("body")[0].appendChild(canvas)
+    let transl = 50
+    let loop = setInterval(function() {
+        transl = transl - 2
+        canvas.style.opacity = Number(canvas.style.opacity) + .1
+        img.style.opacity = Number(img.style.opacity) + .1
+
+        img.style.translate = "0px "+transl+"px"
+        console.log(transl, img.style.translate)
+        if ((canvas.style.opacity + img.style.opacity) >= 2 && transl >= 0) { 
+            clearInterval(loop)            
+        }
+
+    },20)
 }
