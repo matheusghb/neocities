@@ -37,15 +37,10 @@ for (let i = 0; i < wtitle.length; i++) {
     })
 }
 
-const img = document.getElementsByClassName("img")
+const img = document.getElementsByClassName("zoom")
 for (let i = 0; i < img.length; i++) {
     img[i].addEventListener("click", function() {
-        let l = this.childNodes
-        for (let i = 0; i < l.length; i++) {
-            if (l[i].tagName == "IMG") {
-                zoom(l[i].src)
-            } 
-        }
+        zoom(this.src)
     })
 }
 
@@ -257,7 +252,7 @@ function calc() {
 }
 
 function mobilegetcase() { //not optimal but the original code would limit the UI and im feeling lazy x_x
-
+    console.log("oie")
 }
 
 function zoom(imgsrc) {
@@ -267,25 +262,10 @@ function zoom(imgsrc) {
     canvas.className = "canva"
     img.id = "canvaimg"
     img.src = imgsrc
-    canvas.style.opacity = 0
-    img.style.opacity = 0
-    img.style.translate = "0px 50px"
+ 
     canvas.appendChild(img)
     canvas.addEventListener("click", function() {
         this.remove()
     })
     document.getElementsByTagName("body")[0].appendChild(canvas)
-    let transl = 50
-    let loop = setInterval(function() {
-        transl = transl - 2
-        canvas.style.opacity = Number(canvas.style.opacity) + .1
-        img.style.opacity = Number(img.style.opacity) + .1
-
-        img.style.translate = "0px "+transl+"px"
-        console.log(transl, img.style.translate)
-        if ((canvas.style.opacity + img.style.opacity) >= 2 && transl >= 0) { 
-            clearInterval(loop)            
-        }
-
-    },20)
 }

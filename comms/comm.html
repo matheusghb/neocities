@@ -13,7 +13,7 @@
     </div>
     <div class="mdisplay">
         <div class="border">
-            <button class="material-symbols-sharp list">menu</button>
+            <button onclick="mobilegetcase()" class="material-symbols-sharp list">menu</button>
             <a href="/PORFAVOR.html" class="material-symbols-sharp back">home</a>
             <h1 id="title">COMMISSIONS</h1>
         </div>
@@ -54,9 +54,24 @@
             </div>
             
             <div class="arrayoptions">
+                <div class="img"> <!-- x_x lots of bullshittery bcus i dont want to crop these -->
+                    <img class="zoom" src="/assets/sugar.jpg" id="sugar" alt="">
+                </div>                
                 <div class="option">
-                    <div class="img"> <!-- x_x lots of bullshittery bcus i dont want to crop these -->
-                        <img src="/assets/sugar.jpg" id="sugar" alt="">
+                    <div class="optioncell" id="a">
+                        <h1>HEAD PIECE <i>3,00 USD</i></h1>
+                        <button class="material-symbols-sharp add">add</button>
+                    </div>
+                    <div class="optioncell" id="b">
+                        <h1>TORSO PIECE <i>7,00 USD</i></h1>
+                        <button class="material-symbols-sharp add">add</button>
+                    </div>
+                    <div class="optioncell" id="c">
+                        <h1>FULL PIECE <i>12,00 USD</i></h1>
+                        <button class="material-symbols-sharp add">add</button>
+                    </div>
+                    <div class="tips">
+                        <i>Extras are +25%. </i>
                     </div>
                 </div>
             </div>
@@ -66,9 +81,24 @@
             </div>
             
             <div class="arrayoptions">
+                <div class="img">
+                    <img class="zoom" src="/assets/gus.png" id="gus" alt="">
+                </div>                
                 <div class="option">
-                    <div class="img">
-                        <img src="/assets/gus.png" id="gus" alt="">
+                    <div class="optioncell" id="a">
+                        <h1>HEAD PIECE <i>5,00 USD</i></h1>
+                        <button class="material-symbols-sharp add">add</button>
+                    </div>
+                    <div class="optioncell" id="b">
+                        <h1>TORSO PIECE <i>10,00 USD</i></h1>
+                        <button class="material-symbols-sharp add">add</button>
+                    </div>
+                    <div class="optioncell" id="c">
+                        <h1>FULL PIECE <i>25,00 USD</i></h1>
+                        <button class="material-symbols-sharp add">add</button>
+                    </div>
+                    <div class="tips">
+                        <i>Extras are +50%.</i>
                     </div>
                 </div>
             </div>
@@ -78,9 +108,24 @@
             </div>            
 
             <div class="arrayoptions">
+                <div class="img">
+                    <img class="zoom" src="/assets/alice.jpg" id="alice" alt="">
+                </div>                
                 <div class="option">
-                    <div class="img">
-                        <img src="/assets/alice.jpg" id="alice" alt="">
+                    <div class="optioncell" id="a">
+                        <h1>HEAD PIECE <i>10,00 USD</i></h1>
+                        <button class="material-symbols-sharp add">add</button>
+                    </div>
+                    <div class="optioncell" id="b">
+                        <h1>TORSO PIECE <i>25,00 USD</i></h1>
+                        <button class="material-symbols-sharp add">add</button>
+                    </div>
+                    <div class="optioncell" id="c">
+                        <h1>FULL PIECE <i>40,00 USD</i></h1>
+                        <button class="material-symbols-sharp add">add</button>
+                    </div>
+                    <div class="tips">
+                        <i>Extras are +75%.</i>
                     </div>
                 </div>
             </div>
@@ -89,19 +134,89 @@
                 ICONS
             </div>            
 
-            <div class="arrayoptions"></div>
+            <div class="arrayoptions">
+                <div class="img">
+                    <div class="icons">
+                        <img class="zoom" src="/assets/sugaricon.png" alt="">
+                        <img src="/assets/idontremembertbh.png" alt="" class="zoom">
+                    </div>
+                </div>                
+                <div class="option">
+                    <div class="optioncell" id="a">
+                        <h1>SKETCH <i>3,00 USD</i></h1>
+                        <button class="material-symbols-sharp add">add</button>
+                    </div>
+                    <div class="optioncell" id="b">
+                        <h1>MONOTONE <i>5,00 USD</i></h1>
+                        <button class="material-symbols-sharp add">add</button>
+                    </div>
+                    <div class="optioncell" id="c">
+                        <h1>COLOR <i>10,00 USD</i></h1>
+                        <button class="material-symbols-sharp add">add</button>
+                    </div>
+                    <div class="tips">
+                        <i>Veeeery negotiable. It's just a head piece!.</i>
+                    </div>
+                </div>
+            </div>
 
             <div class="typeseparator">
                 HOMESTUCK
             </div>            
 
-            <div class="arrayoptions"></div>
+            <div class="arrayoptions">
+                <div class="img">
+                    <img src="/assets/marie.jpg" alt="" class="zoom">
+                </div>                
+                <div class="option">
+                    <div class="optioncell" id="a">
+                        <h1>SPRITE<i>5,00 USD</i></h1>
+                        <button class="material-symbols-sharp add">add</button>
+                    </div>
+                    <div class="optioncell" id="b">
+                        <h1>ANIMATION<i>10,00 USD</i></h1>
+                        <button class="material-symbols-sharp add">add</button>
+                    </div>
+                    <div class="optioncell" id="c">
+                        <h1>PANEL<i>15,00 USD</i></h1>
+                        <button class="material-symbols-sharp add">add</button>
+                    </div>
+                    <div class="optioncell" id="d">
+                        <h1>SPRITESHEET<i>15,00 USD</i></h1>
+                        <button class="material-symbols-sharp add">add</button>
+                    </div>
+                    <div class="tips">
+                        <i>Also very negotiable.</i>
+                    </div>
+                </div>
+            </div>
 
             <div class="typeseparator">
                 REF
             </div>            
 
-            <div class="arrayoptions"></div>
+            <div class="arrayoptions">
+                <div class="img">
+                    <img src="/assets/ref.png" alt="" class="zoom">
+                </div>                
+                <div class="option">
+                    <div class="optioncell" id="a">
+                        <h1>SKETCH<i>3,00 USD</i></h1>
+                        <button class="material-symbols-sharp add">add</button>
+                    </div>
+                    <div class="optioncell" id="b">
+                        <h1>MONOTONE<i>7,00 USD</i></h1>
+                        <button class="material-symbols-sharp add">add</button>
+                    </div>
+                    <div class="optioncell" id="c">
+                        <h1>COLOR<i>12,00 USD</i></h1>
+                        <button class="material-symbols-sharp add">add</button>
+                    </div>
+                    <div class="tips">
+                        <i>+50% if theres only description/insp images</i>
+                    </div>
+                </div>
+            </div>
 
         </div>
 
@@ -347,7 +462,7 @@
                         </div>
                         <div class="artcontent">
                             <div class="drawing">
-                                <img id="sugar"src="/assets/sugar.jpg" alt="">
+                                <img class="zoom" id="sugar"src="/assets/sugar.jpg" alt="">
                             </div>
                             <div class="info">
 
@@ -386,7 +501,7 @@
                         </div>
                         <div class="artcontent">
                             <div class="drawing">
-                                <img src="/assets/gus.png" alt="">
+                                <img class="zoom" src="/assets/gus.png" alt="">
                             </div>
                             <div class="info">
                                 <div class="option">
@@ -423,7 +538,7 @@
                         </div>
                         <div class="artcontent">
                             <div class="drawing">
-                                <img id="alice" src="/assets/alice.jpg" alt="">
+                                <img class="zoom" id="alice" src="/assets/alice.jpg" alt="">
                             </div>
                             <div class="info">
                                 <div class="option">
@@ -460,8 +575,8 @@
                         </div>
                         <div class="artcontent">
                             <div id="icon" class="drawing">
-                                <img id="icon" src="/assets/sugaricon.png" alt="">
-                                <img id="icon" src="/assets/idontremembertbh.png" alt="">
+                                <img class="zoom" id="icon" src="/assets/sugaricon.png" alt="">
+                                <img class="zoom" id="icon" src="/assets/idontremembertbh.png" alt="">
                             </div>
                             <div class="info">
 
@@ -496,7 +611,7 @@
                         </div>
                         <div class="artcontent">
                             <div class="drawing" id="home">
-                                <img id="home" src="/assets/norawalk.gif" alt="">
+                                <img class="zoom" id="home" src="/assets/norawalk.gif" alt="">
                             </div>
                             <div class="info">
 
@@ -542,7 +657,7 @@
                         </div>
                         <div class="artcontent">
                             <div class="drawing">
-                                <img id="ref" src="/assets/ref.png" alt="">
+                                <img class="zoom" id="ref" src="/assets/ref.png" alt="">
                             </div>
                             <div class="info">
 
