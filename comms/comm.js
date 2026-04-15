@@ -1,31 +1,41 @@
+l = [ //outer edge, holds the types
+    [ // SKETCH
+        ["HEAD PIECE", 3, "hs"], //HEAD PIECE
+        ["TORSO PIECE", 7, "ts"], //TORSO PIECE
+        ["FULL PIECE", 12, "fs"] //FULL PIECE
+    ],
+    [ // FULL COLOR
+        ["HEAD PIECE", 5, "hf"], //HEAD PIECE
+        ["TORSO PIECE", 10, "tf"], //TORSO PIECE
+        ["FULL PIECE", 25, "ff"] //FULL PIECE
+    ],
+    [ // RENDERED
+        ["HEAD PIECE", 10, "hr"], //HEAD PIECE
+        ["TORSO PIECE", 25, "tr"], //TORSO PIECE
+        ["FULL PIECE", 40, "fr"] //FULL PIECE
+    ],
+    [ // ICONS
+        ["SKETCH", 3, "si"], //SKETCH
+        ["FULL COLOR", 5, "fi"], //FULL COLOR
+        ["RENDERED", 10, "ri"] //RENDERED
+    ],
+    [ // HOMESTUCK
+        ["SPRITE ART", 5, "rh"], // SPRITE
+        ["PANEL", 10, "ph"], // PANEL
+        ["ANIMATION", 15, "ah"], // ANIMATION
+        ["SPRITESHEET", 20, "sh"] // SPRITESHEET
+    ],
+    [ // REFs
+        ["SIMPLE REF", 20, "sr"], // SKETCH
+        ["DETAILED REF", 30, "dr"] // FULL COLOR
+    ]
+]
 
-let lcheck = []
+buildprices()
 
-let values = {
-    hs: 0,
-    ts: 0,
-    fs: 0,
-    hm: 0,
-    tm: 0,
-    fm: 0,
-    hc: 0,
-    tc: 0,
-    fc: 0,
-    si: 0,
-    mi: 0,
-    ci: 0,
-    sh: 0,
-    sp: 0,
-    ph: 0,
-    ah: 0,
-    sr: 0,
-    mr: 0,
-    cr: 0,
-}
-
-const wtitle = document.getElementsByClassName("windowtitle")
-for (let i = 0; i < wtitle.length; i++) {
-    wtitle[i].addEventListener("click", function() {
+const wtitle = document.getElementsByClassName("windowtitle") // function that makes the windowtitle collapse work
+for (let i = 0; i < wtitle.length; i++) {                     // (changes display to none or flex,
+    wtitle[i].addEventListener("click", function() {          // changes the icon from a + to a -)
         let content = this.parentElement.childNodes[3]
         if (content.style.display == "flex") {
             content.style.display = "none"
@@ -37,225 +47,14 @@ for (let i = 0; i < wtitle.length; i++) {
     })
 }
 
-const img = document.getElementsByClassName("zoom")
-for (let i = 0; i < img.length; i++) {
+const img = document.getElementsByClassName("zoom") // function that does the makeship zoom on any chosen images
+for (let i = 0; i < img.length; i++) {              // (has the zoom class)
     img[i].addEventListener("click", function() {
         zoom(this.src)
     })
 }
 
-const btns = document.getElementsByClassName("choose")
-for (let i = 0; i < btns.length; i++) {
-  btns[i].addEventListener("click", function() {
-    values[this.parentElement.childNodes[7].id] = values[this.parentElement.childNodes[7].id] + 1
-    document.getElementById(this.parentElement.childNodes[7].id).innerHTML = values[this.parentElement.childNodes[7].id]
-    add_purchase(this.parentElement.childNodes[7].id)
-  })
-}
-
-function add_purchase(id) {
-    if (document.getElementById("sacrifice")) {
-        document.getElementById("sacrifice").remove()
-    }
-
-    let idvalue = case_check(id)
-
-    if (lcheck.includes("value"+id)) {
-        document.getElementById("valuetext"+id).innerHTML = values[id]+"x "+idvalue
-    } else {
-        lcheck.push("value"+id)
-        const divcomm = document.createElement("div")
-        divcomm.id = "value"+id
-
-        const divh = document.createElement("h3")
-        divh.innerHTML = "1x "+idvalue
-        divh.id = "valuetext" + id
-        
-        const closebtn = document.createElement("div")
-        closebtn.className = "material-symbols-rounded"
-        closebtn.innerHTML = "close"
-        closebtn.onclick = function() {
-            if (values[id] > 1) {
-                values[id] = values[id] - 1
-                document.getElementById("valuetext"+id).innerHTML = values[id]+"x "+idvalue
-                document.getElementById(id).innerHTML = values[id]
-            } else {
-                lcheck = (lcheck.slice ( 0, lcheck.indexOf("value"+id) ).concat(lcheck.slice ((lcheck.indexOf("value"+id))+1) ))
-                document.getElementById(id).innerHTML = 0
-                values[id] = 0
-                this.parentElement.remove()                
-            }
-
-        }
-        divcomm.append(divh,closebtn)
-        document.getElementById("values").append(divcomm)
-    }
-
-}
-
-function case_check(value) {
-    switch (value) {
-        case "hs":
-            return "head sketch"
-        case "ts":
-            return "torso sketch"
-        case "fs":
-            return "full sketch"
-        case "hm":
-            return "head monotone"
-        case "tm":
-            return "torso monotone"
-        case "fm":
-            return "full monotone"
-        case "hc":
-            return "head colored"
-        case "tc":
-            return "torso colored"
-        case "fc":
-            return "full colored"
-        case "si":
-            return "icon sketch"
-        case "mi":
-            return "icon monotone"
-        case "ci":
-            return "icon colored"
-        case "sh":
-            return "homestuck sprite"
-        case "sp":
-            return "homestuck spritesheet"
-        case "ph":
-            return "homestuck panel"
-        case "ah":
-            return "homestuck animation"
-        case "sr":
-            return "REF sketch"
-        case "mr":
-            return "REF monotone"
-        case "cr":
-            return "REF colored"
-    }
-}
-
-function calc() {
-    let price = 0
-    for (let i = 0; i < lcheck.length; i++) {
-
-        let v = lcheck[i][5]+lcheck[i][6]
-
-        if (v == Object.keys(values)[0]) { // head sketch
-            if (values[v] > 0) {
-                price = price + 3
-                if (values[v] >= 2) {
-                    price = price + (3/4)*(values[v]-1)
-                }
-            }
-        } else if (v == Object.keys(values)[1]) { // torso sketch
-            if (values[v] > 0) {
-                price = price + 7
-                if (values[v] >= 2) {
-                    price = price + (7/4)*(values[v]-1)
-                }
-            }
-        } else if (v == Object.keys(values)[2]) { // full sketch
-            if (values[v] > 0) {
-                price = price + 12
-                if (values[v] >= 2) {
-                    price = price + (12/4)*(values[v]-1)
-                }
-            }
-        } else if (v == Object.keys(values)[3]) { // head monotone
-            if (values[v] > 0) {
-                price = price + 5
-                if (values[v] >= 2) {
-                    price = price + (5/2)*(values[v]-1)
-                }
-            }
-        } else if (v == Object.keys(values)[4]) { // torso monotone
-            if (values[v] > 0) {
-                price = price + 10
-                if (values[v] >= 2) {
-                    price = price + (10/2)*(values[v]-1)
-                }
-            }
-        } else if (v == Object.keys(values)[5]) { // full monotone
-            if (values[v] > 0) {
-                price = price + 25
-                if (values[v] >= 2) {
-                    price = price + (25/2)*(values[v]-1)
-                }
-            }
-        } else if (v == Object.keys(values)[6]) { // head colored
-            if (values[v] > 0) {
-                price = price + 10
-                if (values[v] >= 2) {
-                    price = price + (10*0.75)*(values[v]-1)
-                }
-            }
-        } else if (v == Object.keys(values)[7]) { // torso colored
-            if (values[v] > 0) {
-                price = price + 25
-                if (values[v] >= 2) {
-                    price = price + (25*0.75)*(values[v]-1)
-                }
-            }
-        } else if (v == Object.keys(values)[8]) { // full colored
-            if (values[v] > 0) {
-                price = price + 40
-                if (values[v] >= 2) {
-                    price = price + (40*0.75)*(values[v]-1)
-                }
-            }
-        } else if (v == Object.keys(values)[9]) { // sketch icon
-            if (values[v] > 0) {
-                price = price + 3 + (3*(values[v]-1))
-            }
-        } else if (v == Object.keys(values)[10]) { // monotone icon
-            if (values[v] > 0) {
-                price = price + 5 + (5*(values[v]-1))
-            }
-        } else if (v == Object.keys(values)[11]) { // color icon
-            if (values[v] > 0) {
-                price = price + 10 + (10*(values[v]-1))
-            }
-        } else if (v == Object.keys(values)[12]) { // sprite homestuck 
-            if (values[v] > 0) {
-                price = price + 5 + (5*(values[v]-1))
-            }
-        } else if (v == Object.keys(values)[13]) { // spritesheet homestuck
-            if (values[v] > 0) {
-                price = price + 15 + (15*(values[v]-1))
-            }
-        } else if (v == Object.keys(values)[14]) { // panel homestuck
-            if (values[v] > 0) {
-                price = price + 15 + (15*(values[v]-1))
-            }
-        } else if (v == Object.keys(values)[15]) { // animation homestuck
-            if (values[v] > 0) {
-                price = price + 10 + (10*(values[v]-1))
-            }
-        } else if (v == Object.keys(values)[16]) { // sketch REF
-            if (values[v] > 0) {
-                price = price + 10 + (10*(values[v]-1))
-            }
-        } else if (v == Object.keys(values)[17]) { // monotone REF
-            if (values[v] > 0) {
-                price = price + 20 + (20*(values[v]-1))
-            }
-        } else if (v == Object.keys(values)[18]) { // color REF
-            if (values[v] > 0) {
-                price = price + 25 + (25*(values[v]-1))
-            }
-        }
-    }
-
-    document.getElementById("rvalue").innerHTML = price
-}
-
-function mobilegetcase() { //not optimal but the original code would limit the UI and im feeling lazy x_x
-    console.log("oie")
-}
-
-function zoom(imgsrc) {
+function zoom(imgsrc) { // Creates a fixed div ontop of everything that goes away if clicked
     const canvas = document.createElement("div")
     const img = document.createElement("img")
     
@@ -269,3 +68,139 @@ function zoom(imgsrc) {
     })
     document.getElementsByTagName("body")[0].appendChild(canvas)
 }
+
+function buildprices() {
+
+    const opt = document.getElementsByClassName("option")
+    for (let i = 0; i < 6; i++) { //selects "option" divs
+
+        let cat = l[i] // for "category"
+        let position = i // saves the i so i get to reuse it inside the loop
+        for (let i = 0; i < cat.length; i++) { // selects and cycles through values of type
+            const cell = document.createElement("div")
+            const type = document.createElement("h1")
+            const price = document.createElement("i")
+            const numdiv = document.createElement("div")
+            const up = document.createElement("div")
+            const down = document.createElement("div")
+            const num = document.createElement("p")
+            
+
+            cell.className = "cell"
+            type.innerHTML = cat[i][0]
+            price.innerHTML = cat[i][1]+" USD"
+
+            num.id = cat[i][2]
+            numdiv.className = "input"
+
+            up.className = "material-symbols-sharp"
+            down.className = "material-symbols-sharp"
+            up.innerHTML = "arrow_drop_up"
+            down.innerHTML = "arrow_drop_down"
+
+            down.style.opacity = .4
+
+
+            up.addEventListener("click",function() {
+                valuecleanup(num,true,down)
+            })
+
+            down.addEventListener("click", function() {
+                valuecleanup(num,false,this)
+            })
+
+            num.innerHTML = 0
+
+
+            type.appendChild(price)
+            numdiv.append(up, down)
+            cell.append(type,numdiv,num)
+            opt[position].appendChild(cell)
+
+        }
+    }
+}
+
+function valuecleanup(entity,direction,down) { // this is embarassing
+    if (direction == true) {
+        entity.innerHTML = Number(entity.innerHTML)+1
+        if (Number(entity.innerHTML)==1) {
+
+            down.style.opacity = 1
+
+            if (entity.parentElement.childNodes.length < 4) {
+                
+                const x = document.createElement("div")
+                x.innerHTML = "x"
+                x.addEventListener("click",function() {
+                    entity.innerHTML = 0
+                    down.style.opacity = .4
+                    this.remove()
+                })
+                entity.parentElement.append(x)
+
+            }
+
+        }
+    } else {
+        if (Number(entity.innerHTML)>0) {
+            entity.innerHTML = Number(entity.innerHTML)-1
+            if (Number(entity.innerHTML)==0) {
+
+                down.style.opacity = .4
+
+                if (entity.parentElement.childNodes.length == 4) {
+                    entity.parentElement.childNodes[3].remove()
+                }
+
+            }
+        }
+    }
+
+}
+
+function calc () {
+    const cell = document.getElementsByClassName("cell")
+    let totalprice = 0
+    let mult = 1
+
+    for (let i = 0; i < cell.length; i++) {
+        
+        let price = Number(cell[i].childNodes[0].childNodes[1].innerHTML.slice(0,2))
+        let val = cell[i].childNodes[2].innerHTML
+        let id = cell[i].childNodes[2].id
+
+        if (val > 0) {
+            if (val > 1) {
+
+                if (id[1] == 'f') {
+                    mult = .50
+                } else if (id[1] == "r") {
+                    mult = .75
+                } else if (id[1] == "i") {
+                    
+                    if (id[0] == "s") {
+                        mult = .25
+                    } else if (id[0] == "f") {
+                        mult = .50
+                    } else {
+                        mult = .75
+                    }
+
+                } else if (id[1] == "h") {
+
+                    if (id[0] == "r" || id[0] == "p") {
+                        mult = .50
+                    }
+
+                }
+                totalprice = totalprice + price + (price*mult)*(val-1)
+            } else {
+                totalprice = totalprice + price
+            }            
+        }
+
+    }
+    console.log(totalprice)
+}
+

@@ -679,39 +679,40 @@ body {
                 flex-direction: column;
                 width: 100%;
                 .option {
-                    .optioncell {
-                        padding: 3%;
-                        border-top: 1px solid rgb(209, 209, 209);
+                    .cell {
                         display: flex;
                         align-items: center;
                         justify-content: space-between;
+                        padding: 3%;
+                        border-top: 1px solid rgb(209, 209, 209);
                         background: linear-gradient(180deg,rgba(255, 255, 255, 1) 55%, rgba(224, 224, 224, 1) 100%);
-                        .add {
-                            border-radius: 0px;
-                        }
                         h1 {
-                            font-size: 5vw;
+                            font-size: 6vw;
                             display: flex;
                             flex-direction: column;
-                            font-weight: 400;
                             i {
-                                font-size: 4vw;
-                                font-weight: 200;
                                 color: gray;
+                                font-size: 4vw;
+                                font-weight: 300;
                             }
                         }
-                    }
-                    .tips {
-                        border-top: 1px solid rgb(209, 209, 209);
-                        padding: 3%;
-                        text-align: end;
-                        i {
-                            font-size: 5.5vw;
-                            color: gray;
-                            font-weight: 100;
+                        .input {
+                            display:flex;
+                            flex-direction: column;
+                        }
+                        p {
+                            margin: auto;
                         }
                     }
+
                 }
+                .tips {
+                    border-top: 1px solid rgb(209, 209, 209);
+                    padding: 3%;
+                    i {
+                        color: gray;
+                    }
+                }                
                 .img {
                     aspect-ratio: 3/1;
                     overflow: hidden;
