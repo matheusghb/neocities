@@ -31,18 +31,20 @@ l = [ //outer edge, holds the types
     ]
 ]
 
+clist = []
+
 buildprices()
 
 const wtitle = document.getElementsByClassName("windowtitle") // function that makes the windowtitle collapse work
 for (let i = 0; i < wtitle.length; i++) {                     // (changes display to none or flex,
     wtitle[i].addEventListener("click", function() {          // changes the icon from a + to a -)
-        let content = this.parentElement.childNodes[3]
+        let content = cycle(this.parentNode,"innercontent")
         if (content.style.display == "flex") {
             content.style.display = "none"
-            this.childNodes[2].innerHTML = "add"
+            cycle(this,"material-symbols-sharp collapse_window").innerHTML = "add"
         } else {
             content.style.display = "flex"
-            this.childNodes[2].innerHTML = "remove"
+            cycle(this,"material-symbols-sharp collapse_window").innerHTML = "remove"
         }
     })
 }
@@ -87,11 +89,13 @@ function buildprices() {
             
 
             cell.className = "cell"
+
             type.innerHTML = cat[i][0]
             price.innerHTML = cat[i][1]+" USD"
 
             num.id = cat[i][2]
             numdiv.className = "input"
+            type.className = "typetxt"
 
             up.className = "material-symbols-sharp"
             down.className = "material-symbols-sharp"
@@ -110,6 +114,7 @@ function buildprices() {
             })
 
             num.innerHTML = 0
+            num.className = "pricenumber"
 
 
             type.appendChild(price)
@@ -123,7 +128,9 @@ function buildprices() {
 
 function valuecleanup(entity,direction,down) { // this is embarassing
     if (direction == true) {
+
         entity.innerHTML = Number(entity.innerHTML)+1
+
         if (Number(entity.innerHTML)==1) {
 
             down.style.opacity = 1
@@ -132,9 +139,13 @@ function valuecleanup(entity,direction,down) { // this is embarassing
                 
                 const x = document.createElement("div")
                 x.innerHTML = "x"
+                x.className = "delete"
                 x.addEventListener("click",function() {
                     entity.innerHTML = 0
                     down.style.opacity = .4
+                    
+                    savecalc(entity.parentNode)
+
                     this.remove()
                 })
                 entity.parentElement.append(x)
@@ -142,20 +153,25 @@ function valuecleanup(entity,direction,down) { // this is embarassing
             }
 
         }
+
     } else {
         if (Number(entity.innerHTML)>0) {
+
             entity.innerHTML = Number(entity.innerHTML)-1
+
             if (Number(entity.innerHTML)==0) {
 
                 down.style.opacity = .4
 
                 if (entity.parentElement.childNodes.length == 4) {
-                    entity.parentElement.childNodes[3].remove()
+                    cycle(entity.parentNode,"delete").remove()
                 }
 
             }
         }
     }
+
+    savecalc(entity.parentNode)
 
 }
 
@@ -201,6 +217,66 @@ function calc () {
         }
 
     }
-    console.log(totalprice)
+
 }
 
+function savecalc(parentnode) {
+
+    const valuelist = document.getElementsByClassName("calccell")
+    let vl = []
+
+    for (let i = 0; i < valuelist.length; i++) {
+        vl.push(cycle(valuelist[i],"txt").innerHTML)
+    }
+
+    let h1 = cycle(parentnode,"typetxt")
+
+    if (vl.indexOf(h1.innerHTML.slice(0,h1.innerHTML.indexOf("<"))) == -1) {
+
+        const calccell = document.createElement("div")
+        const txt = document.createElement("h1")
+        const n = document.createElement("p")
+
+        calccell.className = "calccell"
+
+        txt.innerHTML = h1.innerHTML.slice(0,h1.innerHTML.indexOf("<"))
+        txt.className = "txt"
+
+        n.innerHTML = "- 1x "
+        n.className = "num"
+
+        calccell.append(n,txt)
+        document.getElementsByClassName("values")[0].append(calccell)
+
+    } else {
+        if (Number(cycle(parentnode,"pricenumber").innerHTML) > 0) {
+            cycle(valuelist[vl.indexOf(h1.innerHTML.slice(0,h1.innerHTML.indexOf("<")))],"num").innerHTML = "- "+cycle(parentnode,"pricenumber").innerHTML+"x "
+        } else {
+            valuelist[vl.indexOf(h1.innerHTML.slice(0,h1.innerHTML.indexOf("<")))].remove()
+        }
+
+    }
+
+}
+
+function cycle(subject,value) {
+    for (let i = 0; i < subject.childNodes.length; i++) {
+
+        if (subject.childNodes[i].className == value) {
+            return subject.childNodes[i]
+        }
+
+    }
+}
+
+document.getElementsByClassName("list")[0].addEventListener("click", function () {
+
+    const div = document.getElementsByClassName("calc")[0]
+
+    if (div.style.display == "flex") {
+        div.style.display = "none"
+    } else {
+        div.style.display = "flex"
+    }  
+
+})
