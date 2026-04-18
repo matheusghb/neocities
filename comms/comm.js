@@ -31,23 +31,31 @@ l = [ //outer edge, holds the types
     ]
 ]
 
+if (screen.width < 600 && window.location.pathname == "/comms/comm.html") {
+    window.location.replace("commmobile.html")
+}
+
 clist = []
 
 buildprices()
 
-const wtitle = document.getElementsByClassName("windowtitle") // function that makes the windowtitle collapse work
-for (let i = 0; i < wtitle.length; i++) {                     // (changes display to none or flex,
-    wtitle[i].addEventListener("click", function() {          // changes the icon from a + to a -)
-        let content = cycle(this.parentNode,"innercontent")
-        if (content.style.display == "flex") {
-            content.style.display = "none"
-            cycle(this,"material-symbols-sharp collapse_window").innerHTML = "add"
-        } else {
-            content.style.display = "flex"
-            cycle(this,"material-symbols-sharp collapse_window").innerHTML = "remove"
-        }
-    })
+if (document.getElementsByClassName("windowtitle")) {
+    const wtitle = document.getElementsByClassName("windowtitle") // function that makes the windowtitle collapse work
+    for (let i = 0; i < wtitle.length; i++) {                     // (changes display to none or flex,
+        wtitle[i].addEventListener("click", function() {          // changes the icon from a + to a -)
+            let content = cycle(this.parentNode,"innercontent")
+            if (content.style.display == "flex") {
+                content.style.display = "none"
+                cycle(this,"material-symbols-sharp collapse_window").innerHTML = "add"
+            } else {
+                content.style.display = "flex"
+                cycle(this,"material-symbols-sharp collapse_window").innerHTML = "remove"
+            }
+        })
+    }    
 }
+
+
 
 const img = document.getElementsByClassName("zoom") // function that does the makeship zoom on any chosen images
 for (let i = 0; i < img.length; i++) {              // (has the zoom class)
@@ -218,6 +226,18 @@ function calc () {
 
     }
 
+    const uhh = document.getElementsByClassName("values")[0]
+
+    if (totalprice > 0) {
+        uhh.style.display = "flex"
+        return "The total comes around to "+totalprice+" USD."
+    } else {
+        uhh.style.display = "none"
+        return "You haven't added anything!"
+    }
+
+    
+
 }
 
 function savecalc(parentnode) {
@@ -231,7 +251,9 @@ function savecalc(parentnode) {
 
     let h1 = cycle(parentnode,"typetxt")
 
-    if (vl.indexOf(h1.innerHTML.slice(0,h1.innerHTML.indexOf("<"))) == -1) {
+    const thefuckingtype = parentnode.parentNode.parentNode.previousSibling.previousSibling.innerText
+
+    if (vl.indexOf(thefuckingtype+" "+h1.innerHTML.slice(0,h1.innerHTML.indexOf("<"))) == -1) {
 
         const calccell = document.createElement("div")
         const txt = document.createElement("h1")
@@ -239,7 +261,7 @@ function savecalc(parentnode) {
 
         calccell.className = "calccell"
 
-        txt.innerHTML = h1.innerHTML.slice(0,h1.innerHTML.indexOf("<"))
+        txt.innerHTML = thefuckingtype+" "+h1.innerHTML.slice(0,h1.innerHTML.indexOf("<"))
         txt.className = "txt"
 
         n.innerHTML = "- 1x "
@@ -250,12 +272,15 @@ function savecalc(parentnode) {
 
     } else {
         if (Number(cycle(parentnode,"pricenumber").innerHTML) > 0) {
-            cycle(valuelist[vl.indexOf(h1.innerHTML.slice(0,h1.innerHTML.indexOf("<")))],"num").innerHTML = "- "+cycle(parentnode,"pricenumber").innerHTML+"x "
+            cycle(valuelist[vl.indexOf(thefuckingtype+" "+h1.innerHTML.slice(0,h1.innerHTML.indexOf("<")))],"num").innerHTML = "- "+cycle(parentnode,"pricenumber").innerHTML+"x "
         } else {
-            valuelist[vl.indexOf(h1.innerHTML.slice(0,h1.innerHTML.indexOf("<")))].remove()
+            valuelist[vl.indexOf(thefuckingtype+" "+h1.innerHTML.slice(0,h1.innerHTML.indexOf("<")))].remove()
         }
+        
 
     }
+
+    document.getElementsByClassName("total")[0].innerHTML = calc()
 
 }
 
@@ -269,14 +294,17 @@ function cycle(subject,value) {
     }
 }
 
-document.getElementsByClassName("list")[0].addEventListener("click", function () {
+if (document.getElementsByClassName("list")[0]) {
+    document.getElementsByClassName("list")[0].addEventListener("click", function () {
 
-    const div = document.getElementsByClassName("calc")[0]
+        const div = document.getElementsByClassName("calc")[0]
 
-    if (div.style.display == "flex") {
-        div.style.display = "none"
-    } else {
-        div.style.display = "flex"
-    }  
+        if (div.style.display == "flex") {
+            div.style.display = "none"
+        } else {
+            div.style.display = "flex"
+        }  
 
-})
+    })    
+}
+
