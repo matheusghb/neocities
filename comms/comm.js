@@ -264,7 +264,7 @@ function savecalc(parentnode) {
         txt.innerHTML = thefuckingtype+" "+h1.innerHTML.slice(0,h1.innerHTML.indexOf("<"))
         txt.className = "txt"
 
-        n.innerHTML = "- 1x "
+        n.innerHTML = "1x "
         n.className = "num"
 
         calccell.append(n,txt)
@@ -272,7 +272,7 @@ function savecalc(parentnode) {
 
     } else {
         if (Number(cycle(parentnode,"pricenumber").innerHTML) > 0) {
-            cycle(valuelist[vl.indexOf(thefuckingtype+" "+h1.innerHTML.slice(0,h1.innerHTML.indexOf("<")))],"num").innerHTML = "- "+cycle(parentnode,"pricenumber").innerHTML+"x "
+            cycle(valuelist[vl.indexOf(thefuckingtype+" "+h1.innerHTML.slice(0,h1.innerHTML.indexOf("<")))],"num").innerHTML = cycle(parentnode,"pricenumber").innerHTML+"x "
         } else {
             valuelist[vl.indexOf(thefuckingtype+" "+h1.innerHTML.slice(0,h1.innerHTML.indexOf("<")))].remove()
         }
@@ -308,3 +308,16 @@ if (document.getElementsByClassName("list")[0]) {
     })    
 }
 
+if (document.getElementsByClassName("menu")) {
+    const menu = document.getElementsByClassName("topic")
+    console.log(menu)
+    for (let i = 0; i < menu.length;i++) {
+        
+        if ((i % 2) > 0) {
+            
+            menu[i].id = "dark"
+
+        }
+
+    }
+}
